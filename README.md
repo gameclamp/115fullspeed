@@ -13,3 +13,5 @@
 ![](http://ww2.sinaimg.cn/large/43c4a271gw1f2nzameh5lg20m30cwnpe.gif)
 *  打开多个文件播放
 ![](http://ww4.sinaimg.cn/large/43c4a271gw1f2nzakv3oig20m30cwe82.gif)
+*  aria2
+![](http://ww1.sinaimg.cn/large/43c4a271gw1f2okoe9v0hj20r70fy74s.jpg)
