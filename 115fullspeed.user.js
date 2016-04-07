@@ -8,7 +8,7 @@
 // @include     http://115.com/?aid=-1&search*
 // @downloadURL https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
-// @version     0.3.0
+// @version     0.3.1
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
 var observer = new MutationObserver(addbtu);
