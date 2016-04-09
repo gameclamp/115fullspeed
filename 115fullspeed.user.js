@@ -10,7 +10,7 @@
 // @include     http://115.com/?aid=-1&search*
 // @downloadURL https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
-// @version     0.3.1
+// @version     0.3.2
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
 var observer = new MutationObserver(addbtu);
@@ -20,7 +20,7 @@ function addbtu(e){
 	var elmInput;
 	for (var i = filelist.length - 1; i >= 0; --i) {
 		elmInput = filelist[i];
-		elmInput.querySelector('.file-opr').appendChild(creator('a','<span>打开</span>','','',getOne));
+		(elmInput.querySelector('div.file-opr')||elmInput.querySelector('span.file-name')).appendChild(creator('a','<span>打开</span>','','',getOne));
 	}
 }
 function getOne(e){
