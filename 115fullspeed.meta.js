@@ -10,6 +10,6 @@
 // @include     http://115.com/?aid=-1&search*
 // @downloadURL https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
-// @version     0.3.1
+// @version     0.3.2
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
