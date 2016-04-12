@@ -10,10 +10,11 @@
 // @include     http://115.com/?aid=-1&search*
 // @downloadURL https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
-// @version     0.3.2
+// @version     0.3.3
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
 var observer = new MutationObserver(addbtu);
+var decoder = document.createElement('textarea');
 observer.observe(document.querySelector('#js_data_list'),{'childList':true})
 function addbtu(e){
 	var filelist = document.querySelectorAll('li[file_mode="9"],li[file_mode="4"]');
@@ -78,10 +79,12 @@ function putLink(obj){
 function pushtoARIA2(uri,out){
     var options = {}
     options.header = ["User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 115Browser/6.0.4","Referer: http://115.com","Accept: */*"];
-    options.out = out;
+    decoder.innerHTML = out;
+    options.out = decoder.value;
     options['max-connection-per-server'] = 1;
     options['continue'] = true;
     var aria2 = new ARIA2('http://localhost:6800/jsonrpc');
+    // console.log(options);
     aria2.addUri(uri,options);
 }
 function by(name,order){
@@ -132,7 +135,7 @@ function DOWNL(){
         var sarr = [];
         var barr = [];
         while(item = this.downloadlist2.pop()){
-            if(item.size<20000000){
+            if(item.size<20480000){
                 sarr.push(item);
             }else{
                 barr.push(item);
@@ -161,9 +164,10 @@ function DOWNL(){
             case 'folder':
                 self.remainfolder++;
                 console.log('增加一个现在是：'+self.remainfolder)
-                url = 'http://web.api.115.com/files?aid=1&cid=' + obj.cid + '&o=user_ptime&asc=0&offset=0&show_dir=1&limit=999&code=&scid=&snap=0&natsort=1&source=&format=json&type=&star=&is_q=&is_share=';
+                url = 'http://aps.115.com/natsort/files.php?aid=1&cid=' + obj.cid + '&o=file_name&asc=1&offset=0&show_dir=1&limit=999&code=&scid=&snap=0&natsort=1&source=&format=json&type=&star=&is_share=';
                 break;
         }
+        console.log(url)
         GM_xmlhttpRequest({
             synchronous:false,
             method:'GET',
