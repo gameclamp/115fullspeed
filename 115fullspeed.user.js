@@ -6,11 +6,11 @@
 // @description 批量获取下载地址;调用本地播放器(potplayer)播放原画视频;按文件大小顺序发送下载任务到aria2，更多帮助查看https://github.com/gameclamp/115fullspeed
 // @author      9尾雪狐(gameclamp)
 // @icon        https://github.com/gameclamp/115fullspeed/raw/master/icon.ico
-// @include     http://115.com/?ct=file*
-// @include     http://115.com/?aid=-1&search*
+// @include     http*://115.com/?ct=file*
+// @include     http*://115.com/?aid=-1&search*
 // @downloadURL https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
-// @version     0.3.3
+// @version     0.3.4
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
 var observer = new MutationObserver(addbtu);
@@ -81,7 +81,7 @@ function pushtoARIA2(uri,out){
     options.header = ["User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 115Browser/6.0.4","Referer: http://115.com","Accept: */*"];
     decoder.innerHTML = out;
     options.out = decoder.value;
-    options['max-connection-per-server'] = 1;
+    options['max-connection-per-server'] = 2;
     options['continue'] = true;
     var aria2 = new ARIA2('http://localhost:6800/jsonrpc');
     // console.log(options);
@@ -156,10 +156,10 @@ function DOWNL(){
         var self = this;
         switch(obj.method){
             case 'download':
-                url = 'http://web.api.115.com/files/download?pickcode=' + obj.pickcode + '&_=' + Date.now();
+                url = 'https://webapi.115.com/files/download?pickcode=' + obj.pickcode + '&_=' + Date.now();
                 break;
             case 'files':
-                url = 'http://web.api.115.com/files/download?pickcode=' + obj.pickcode + '&_=' + Date.now();
+                url = 'https://webapi.115.com/files/download?pickcode=' + obj.pickcode + '&_=' + Date.now();
                 break;
             case 'folder':
                 self.remainfolder++;
