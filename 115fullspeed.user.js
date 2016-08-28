@@ -10,7 +10,7 @@
 // @include     http*://115.com/?aid=-1&search*
 // @downloadURL https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
-// @version     0.3.4
+// @version     0.3.5
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
 var observer = new MutationObserver(addbtu);
@@ -250,24 +250,26 @@ var ARIA2 = (function() {
   };
 
   function request(jsonrpc_path, method, params) {
-    var xhr = new XMLHttpRequest();
-    var auth = get_auth(jsonrpc_path);
-    jsonrpc_path = jsonrpc_path.replace(/^((?![^:@]+:[^:@\/]*@)[^:\/?#.]+:)?(\/\/)?(?:(?:[^:@]*(?::[^:@]*)?)?@)?(.*)/, '$1$2$3'); // auth string not allowed in url for firefox
-
     var request_obj = {
-      jsonrpc: jsonrpc_version,
-      method: method,
-      id: (new Date()).getTime().toString(),
+        jsonrpc: jsonrpc_version,
+        method: method,
+        id: (new Date()).getTime().toString(),
     };
     if (params) request_obj['params'] = params;
-    if (auth && auth.indexOf('token:') == 0) params.unshift(auth);
 
-    xhr.open("POST", jsonrpc_path+"?tm="+(new Date()).getTime().toString(), true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-    if (auth && auth.indexOf('token:') != 0) {
-      xhr.setRequestHeader("Authorization", "Basic "+btoa(auth));
-    }
-    xhr.send(JSON.stringify(request_obj));
+    var auth = get_auth(jsonrpc_path);
+
+    // 用 GM_xmlhttpRequest 防止 NoScript 拦截，用 setTimeout 防止外部无法调用
+    setTimeout(function(){
+        GM_xmlhttpRequest({
+            method: 'POST',
+            url: jsonrpc_path + '?tm=' + (new Date()).getTime().toString(),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            data: JSON.stringify(request_obj)
+        });
+    }, 0);
   };
 
   return function(jsonrpc_path) {
