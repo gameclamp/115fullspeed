@@ -10,7 +10,7 @@
 // @include     http*://115.com/?aid=-1&search*
 // @downloadURL https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
-// @version     0.3.6
+// @version     0.3.7
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
 var observer = new MutationObserver(addbtu);
@@ -81,7 +81,7 @@ function pushtoARIA2(uri,out){
     var UID = getCookie('UID');
     var CID = getCookie('CID');
     var SEID = getCookie('SEID');
-    var cookies = `Cookie: UID=${UID};CID=${CID};SEID=${SEID}`;
+    var cookies = `Cookie: UID=${UID};CID=${CID};SEID=${SEID};115_lang=zh;`;
     options.header = [,cookies,"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 115Browser/7.2.5","Referer: http://115.com","Accept: */*"];
     decoder.innerHTML = out;
     options.out = decoder.value;
