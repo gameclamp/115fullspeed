@@ -10,7 +10,7 @@
 // @include     http*://115.com/?aid=-1&search*
 // @downloadURL https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
-// @version     0.3.5
+// @version     0.3.6
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
 var observer = new MutationObserver(addbtu);
@@ -78,7 +78,11 @@ function putLink(obj){
 }
 function pushtoARIA2(uri,out){
     var options = {}
-    options.header = ["User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 115Browser/6.0.4","Referer: http://115.com","Accept: */*"];
+    var UID = getCookie('UID');
+    var CID = getCookie('CID');
+    var SEID = getCookie('SEID');
+    var cookies = `Cookie: UID=${UID};CID=${CID};SEID=${SEID}`;
+    options.header = [,cookies,"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 115Browser/7.2.5","Referer: http://115.com","Accept: */*"];
     decoder.innerHTML = out;
     options.out = decoder.value;
     options['max-connection-per-server'] = 2;
@@ -177,7 +181,7 @@ function DOWNL(){
             'Accept':'*/*',
             'Accept-Encoding':'gzip, deflate, sdch',
             'Accept-Language':'zh-CN,zh;q=0.8',
-            'User-agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 115Browser/6.0.4',
+            'User-agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 115Browser/7.2.5',
             'X-Requested-With':'XMLHttpRequest',
             'Referer':'http://web.api.115.com/bridge_2.0.html?namespace=Core.DataAccess&api=UDataAPI&_t=v5',
             'Cookie':document.cookie
@@ -332,6 +336,13 @@ function fullspeed(){
 function download(){
     var obj = new DOWNL();
     obj.download();
+}
+function getCookie(name){
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+     return null;
 }
 var div = creator('div','','','position: fixed;right: 210px;top: 5px;z-index: 10000;')
 div.appendChild(creator('a','下载','','margin-right:5px;',download));
