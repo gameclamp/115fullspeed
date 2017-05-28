@@ -7,10 +7,10 @@
 // @author      9尾雪狐(gameclamp)
 // @icon        https://github.com/gameclamp/115fullspeed/raw/master/icon.ico
 // @include     http*://115.com/?ct=file*
-// @include     http*://115.com/?aid=-1&search*
+// @include     http*://115.com/?aid=1&cid=*
 // @downloadURL https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
-// @version     0.3.8
+// @version     0.3.9
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
 var observer = new MutationObserver(addbtu);
@@ -35,6 +35,7 @@ function getOne(e){
 }
 function oneASX(obj){
 	var hrefs = '<ASX Version="3.0">';
+        // hrefs += '<Entry><Title>' + obj.elm.getAttribute('title') + '</Title><Ref href ="http://127.0.0.1:8000/' + obj.url + '" /></Entry>';
         hrefs += '<Entry><Title>' + obj.elm.getAttribute('title') + '</Title><Ref href ="' + obj.url + '" /></Entry>';
     hrefs += '</ASX>'
     var aFileParts = [hrefs];
@@ -306,6 +307,7 @@ var getASX = function(){
     var linklist = document.querySelectorAll('.list-contents .fslink');
     var hrefs = '<ASX Version="3.0">';
     for (var i = linklist.length,j=0; j < i; j++) {
+        // hrefs += '<Entry><Title>' + linklist[j].parentElement.parentElement.getAttribute('title') + '</Title><Ref href ="http://127.0.0.1:8000/' + linklist[j].href + '" /></Entry>';
         hrefs += '<Entry><Title>' + linklist[j].parentElement.parentElement.getAttribute('title') + '</Title><Ref href ="' + linklist[j].href + '" /></Entry>';
     }
     hrefs += '</ASX>'
