@@ -7,9 +7,9 @@
 // @author      9尾雪狐(gameclamp)
 // @icon        https://github.com/gameclamp/115fullspeed/raw/master/icon.ico
 // @include     http*://115.com/?ct=file*
-// @include     http*://115.com/?aid=-1&search*
+// @include     http*://115.com/?aid=1&cid=*
 // @downloadURL https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
-// @version     0.3.8
+// @version     0.3.9
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
