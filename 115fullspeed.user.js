@@ -10,14 +10,14 @@
 // @include     http*://115.com/?aid=1&cid=*
 // @downloadURL https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.user.js
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
-// @version     0.3.9
+// @version     0.3.10
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
 var observer = new MutationObserver(addbtu);
 var decoder = document.createElement('textarea');
 observer.observe(document.querySelector('#js_data_list'),{'childList':true})
 function addbtu(e){
-	var filelist = document.querySelectorAll('li[file_mode="9"],li[file_mode="4"]');
+	var filelist = document.querySelectorAll('li[file_mode="9"],li[file_mode="4"],li[file_mode="1"]');
 	var elmInput;
 	for (var i = filelist.length - 1; i >= 0; --i) {
 		elmInput = filelist[i];
