@@ -12,6 +12,7 @@
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
 // @version     0.3.10
 // @grant       GM_xmlhttpRequest
+// @grant       GM_cookie
 // ==/UserScript==
 var observer = new MutationObserver(addbtu);
 var decoder = document.createElement('textarea');
@@ -77,11 +78,11 @@ function putLink(obj){
 	}
 	if(obj.callback){obj.callback(obj)}
 }
-function pushtoARIA2(uri,out){
+async function pushtoARIA2(uri,out){
     var options = {}
-    var UID = getCookie('UID');
-    var CID = getCookie('CID');
-    var SEID = getCookie('SEID');
+    var UID = await getCookie('UID');
+    var CID = await getCookie('CID');
+    var SEID = await getCookie('SEID');
     var cookies = `Cookie: UID=${UID};CID=${CID};SEID=${SEID}`;
     options.header = [cookies,"User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 115Browser/7.2.5","Referer: http://115.com","Accept: */*"];
     decoder.innerHTML = out;
@@ -339,12 +340,18 @@ function download(){
     var obj = new DOWNL();
     obj.download();
 }
-function getCookie(name){
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-    if(arr=document.cookie.match(reg))
-        return unescape(arr[2]);
-    else
-     return null;
+function getCookie(name) {
+    return new Promise(function (resolve) {
+        GM_cookie.list({
+            url: location.href,
+            name: name
+        }, function (result, error) {
+            if (error || result.length === 0) {
+                resolve(null);
+            }
+            resolve(result[0].value);
+        });
+    });
 }
 var div = creator('div','','','position: fixed;right: 210px;top: 5px;z-index: 10000;')
 div.appendChild(creator('a','下载','','margin-right:5px;',download));
