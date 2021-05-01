@@ -12,6 +12,7 @@
 // @updateURL   https://github.com/gameclamp/115fullspeed/raw/master/115fullspeed.meta.js
 // @version     0.3.10
 // @grant       GM_xmlhttpRequest
+// @grant       GM_cookie
 // ==/UserScript==
 var observer = new MutationObserver(addbtu);
 var decoder = document.createElement('textarea');
